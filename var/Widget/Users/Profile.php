@@ -108,16 +108,6 @@ class Widget_Users_Profile extends Widget_Users_Edit implements Widget_Interface
         return $form;
     }
 
-    /**
-     * 输出自定义设置选项
-     *
-     * @access public
-     * @param string $pluginName 插件名称
-     * @param string $className 类名称
-     * @param string $pluginFileName 插件文件名
-     * @param string $group 用户组
-     * @return Typecho_Widget_Helper_Form
-     */
     public function personalForm($pluginName, $className, $pluginFileName, &$group)
     {
         /** 构建表格 */
@@ -243,17 +233,8 @@ class Widget_Users_Profile extends Widget_Users_Edit implements Widget_Interface
      */
     public function updateOptions()
     {
-        $settings['autoSave'] = $this->request->autoSave ? 1 : 0;
-        $settings['markdown'] = $this->request->markdown ? 1 : 0;
-
         $settings['defaultAllowComment'] = is_array($this->request->defaultAllow)
         && in_array('comment', $this->request->defaultAllow) ? 1 : 0;
-
-        $settings['defaultAllowPing'] = is_array($this->request->defaultAllow)
-        && in_array('ping', $this->request->defaultAllow) ? 1 : 0;
-
-        $settings['defaultAllowFeed'] = is_array($this->request->defaultAllow)
-        && in_array('feed', $this->request->defaultAllow) ? 1 : 0;
 
         foreach ($settings as $name => $value) {
             if ($this->db->fetchObject($this->db->select(array('COUNT(*)' => 'num'))

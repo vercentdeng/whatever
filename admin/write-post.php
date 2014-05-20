@@ -95,8 +95,6 @@ Typecho_Widget::widget('Widget_Contents_Post_Edit')->to($post);
                         </section>
 
                         <?php Typecho_Plugin::factory('admin/write-post.php')->option($post); ?>
-
-                        <button type="button" id="advance-panel-btn" class="btn-xs"><?php _e('高级选项'); ?> <i class="i-caret-down"></i></button>
                         <div id="advance-panel">
                             <?php if($user->pass('editor', true)): ?>
                             <section class="typecho-post-option visibility-option">
@@ -105,36 +103,19 @@ Typecho_Widget::widget('Widget_Contents_Post_Edit')->to($post);
                                 <select id="visibility" name="visibility">
                                     <?php if ($user->pass('editor', true)): ?>
                                     <option value="publish"<?php if (($post->status == 'publish' && !$post->password) || !$post->status): ?> selected<?php endif; ?>><?php _e('公开'); ?></option>
-                                    <option value="hidden"<?php if ($post->status == 'hidden'): ?> selected<?php endif; ?>><?php _e('隐藏'); ?></option>
-                                    <option value="password"<?php if (strlen($post->password) > 0): ?> selected<?php endif; ?>><?php _e('密码保护'); ?></option>
                                     <option value="private"<?php if ($post->status == 'private'): ?> selected<?php endif; ?>><?php _e('私密'); ?></option>
-                                    <?php endif; ?>
-                                    <option value="waiting"<?php if (!$user->pass('editor', true) || $post->status == 'waiting'): ?> selected<?php endif; ?>><?php _e('待审核'); ?></option>
+                                    <?php endif; ?>                                  
                                 </select>
                                 </p>
-                                <p id="post-password"<?php if (strlen($post->password) == 0): ?> class="hidden"<?php endif; ?>>
-                                    <label for="protect-pwd" class="sr-only">内容密码</label>
-                                    <input type="text" name="password" id="protect-pwd" class="text-s" value="<?php $post->password(); ?>" size="16" placeholder="<?php _e('内容密码'); ?>" />
-                                </p>
+                                
                             </section>
                             <?php endif; ?>
 
                             <section class="typecho-post-option allow-option">
-                                <label class="typecho-label"><?php _e('权限控制'); ?></label>
                                 <ul>
                                     <li><input id="allowComment" name="allowComment" type="checkbox" value="1" <?php if($post->allow('comment')): ?>checked="true"<?php endif; ?> />
                                     <label for="allowComment"><?php _e('允许评论'); ?></label></li>
-                                    <li><input id="allowPing" name="allowPing" type="checkbox" value="1" <?php if($post->allow('ping')): ?>checked="true"<?php endif; ?> />
-                                    <label for="allowPing"><?php _e('允许被引用'); ?></label></li>
-                                    <li><input id="allowFeed" name="allowFeed" type="checkbox" value="1" <?php if($post->allow('feed')): ?>checked="true"<?php endif; ?> />
-                                    <label for="allowFeed"><?php _e('允许在聚合中出现'); ?></label></li>
                                 </ul>
-                            </section>
-                            
-                            <section class="typecho-post-option">
-                                <label for="trackback" class="typecho-label"><?php _e('引用通告'); ?></label>
-                                <p><textarea id="trackback" class="w-100 mono" name="trackback" rows="2"></textarea></p>
-                                <p class="description"><?php _e('每一行一个引用地址, 用回车隔开'); ?></p>
                             </section>
 
                             <?php Typecho_Plugin::factory('admin/write-post.php')->advanceOption($post); ?>

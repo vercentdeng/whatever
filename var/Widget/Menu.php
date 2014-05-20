@@ -100,7 +100,7 @@ class Widget_Menu extends Typecho_Widget
      */
     public function execute()
     {
-        $parentNodes = array(NULL, _t('控制台'), _t('撰写'), _t('管理'), _t('设置'));
+        $parentNodes = array(NULL, _t('通用'), _t('撰写'), _t('管理'), _t('设置'));
 
         $childNodes =  array(
         array(
@@ -110,8 +110,6 @@ class Widget_Menu extends Typecho_Widget
         array(
             array(_t('概要'), _t('网站概要'), 'index.php', 'subscriber'),
             array(_t('个人设置'), _t('个人设置'), 'profile.php', 'subscriber'),
-            array(_t('插件'), _t('插件管理'), 'plugins.php', 'administrator'),
-            array(array('Widget_Plugins_Config', 'getMenuTitle'), array('Widget_Plugins_Config', 'getMenuTitle'), 'options-plugin.php?config=', 'administrator', true),
             array(_t('外观'), _t('网站外观'), 'themes.php', 'administrator'),
             array(array('Widget_Themes_Files', 'getMenuTitle'), array('Widget_Themes_Files', 'getMenuTitle'), 'theme-editor.php', 'administrator', true),
             array(array('Widget_Themes_Config', 'getMenuTitle'), array('Widget_Themes_Config', 'getMenuTitle'), 'options-theme.php', 'administrator', true),
