@@ -1,0 +1,63 @@
+<link rel="stylesheet" type="text/css" href="<?php echo $cssUrl; ?>" />
+<script type="text/javascript">
+	$(function(){
+		if($('#wmd-button-row').length>0)
+			$('#wmd-button-row').append('<li class="wmd-button" id="wmd-video-button" style="font-size:20px;float:left;color:#AAA;width:20px;" title=插入视频>V</li>');
+		else
+	 		$('#text').before('<a href="#" id="wmd-video-button" title="插入视频">V</a>');
+
+	 	$(document).on('click', '#wmd-video-button', function(){
+	 		var bgwidth = (document.body.className == 'fullscreen') ? '200%' : '100%';
+	 		$(this).after(
+	 			'<div class="wmd-prompt-dialog"><div><p><b>插入视频</b></p><p>请输入来自优酷/土豆/酷六/56/搜狐/新浪视频网站的播放页面地址,注意不是FLASH地址</div><form><input type="text" name="video_url"><br>宽度：<input name="width" value="640" size="1"/>&nbsp;&nbsp;高度：<input name="height" value="480" size="1"/><br><br><button type="button" class="btn-s primary" onclick="addVideo(this);">确定</button><button type="button" class="btn-s" onclick="rm2();">取消</button></form></div>');
+
+	 	})
+
+	 	//移除弹窗
+	 	if(($('.wmd-prompt-dialog').length != 0) && e.keyCode == '27') {
+			rm2();
+		}
+	})
+
+	function addVideo(e){
+		$form = $(e).closest('form');
+		url = $.trim($form.find('input[name="video_url"]').val());
+		width = $form.find('[name=width]').val() || 640;
+		height = $form.find('[name=height]').val() || 480;
+		if(url == ''){
+			alert('请输入外网视频地址');
+		}
+		$.ajax({
+			url : '<?php echo $ajaxurl?>',
+			type : 'post',
+			data : {link: url},
+			dataType : 'json',
+			success : function(data){
+				if(data.error == undefined){
+					data.url = url;
+					var temp = data.title.split("-");
+					if(temp[0] != undefined){
+						data.title = temp[0];
+					}
+					setHTML(data,width,height);
+					rm2();
+				}else{
+					alert('输入的地址无法解析，请换个地址再试试吧');
+				}
+			}
+		});
+	}
+
+	function setHTML(r,w,h){
+		if(r.id == undefined) r.id = r.pid; //兼容
+		var html = '\r\r<div class="video"><object class="mr10 vab" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" width="'+w+'" height="'+h+'"><param value="transparent" name="wmode"/><param value="'+r.id+'" name="movie" /><embed src="'+r.id+'" wmode="transparent" allowfullscreen="true" type="application/x-shockwave-flash" width="'+w+'" height="'+h+'"></embed></object></div>'
+		var t = $('#text');
+		t.val(t.val()+html);
+		rm2();
+		t.blur(); //同步预览 不知道怎么触发
+	}
+
+	function rm2() {
+		$('.wmd-prompt-dialog').remove()
+	}
+</script>
