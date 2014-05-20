@@ -1,13 +1,13 @@
 <?php if(!defined('__TYPECHO_ROOT_DIR__')) exit; ?>
 <div class="typecho-foot" role="contentinfo">
     <div class="copyright">
-        <a href="http://typecho.org" class="i-logo-s">Typecho</a>
-        <p><?php _e('由 <a href="http://typecho.org">%s</a> 强力驱动, 版本 %s (%s)', $options->software, $prefixVersion, $suffixVersion); ?></p>
+        <p>江苏省镇江市江苏大学软件工程系 邮编：212013</p>
     </div>
     <nav class="resource">
-        <a href="http://docs.typecho.org"><?php _e('帮助文档'); ?></a> &bull;
-        <a href="http://forum.typecho.org"><?php _e('支持论坛'); ?></a> &bull;
-        <a href="https://github.com/typecho/typecho/issues"><?php _e('报告错误'); ?></a> &bull;
-        <a href="http://extends.typecho.org"><?php _e('资源下载'); ?></a>
+        <p>Copyright 2012 Jiangsu University . All Right Reserved 
+          <a href="#">
+            <img src="img/pic.gif" alt="entrypic" border="0" hspace="0">
+          </a>
+      </p>
     </nav>
 </div>
